@@ -11,7 +11,7 @@ import Foundation
 struct APIConstants{
     
     private static let BASE_URL = "https://jsonplaceholder.typicode.com/"
-    private static let PHOTOS = "photdos/"
+    private static let PHOTOS = "photos/"
     private static let ALBUMS = "albums/"
     private static let USERS = "users/"
     private static let COMMENTS = "comments"

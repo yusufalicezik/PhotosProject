@@ -11,5 +11,7 @@ pod 'SDWebImage'
 pod 'RxSwift'
 pod 'RxCocoa'
 pod 'RxDataSources', '~> 4.0'
+pod 'ReachabilitySwift'
+
 
 end

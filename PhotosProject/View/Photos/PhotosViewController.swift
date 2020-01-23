@@ -10,6 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 import RxDataSources
+import Reachability
 
 class PhotosViewController: UIViewController {
     
@@ -18,13 +19,16 @@ class PhotosViewController: UIViewController {
     
     private var disposeBag = DisposeBag()
     private var dataSource: RxTableViewSectionedReloadDataSource<SectionOfPhoto>!
+    private let reachability = try! Reachability()
+    
     
     public let photosListViewModel = PhotosListViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "PhotoCell", bundle: nil), forCellReuseIdentifier: "cell")
-        tableView.estimatedRowHeight = 135
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(note:)), name: .reachabilityChanged, object: reachability)
+        try! reachability.startNotifier()
         setupBindings()
     }
     
@@ -62,11 +66,11 @@ class PhotosViewController: UIViewController {
         photosListViewModel.showLoading
             .observeOn(MainScheduler.instance)
             .bind(to: loadingIndicator.rx.isHidden).disposed(by: disposeBag)
-
+        
         photosListViewModel.errorStatus.observeOn(MainScheduler.instance)
-        .subscribe(onNext: { [weak self] errorMessage in
-            self?.showAlert(message: errorMessage)
-        }).disposed(by: disposeBag)
+            .subscribe(onNext: { [weak self] errorMessage in
+                self?.showAlert(message: errorMessage)
+            }).disposed(by: disposeBag)
     }
     
     func setTableViewDataSource() {
@@ -77,7 +81,7 @@ class PhotosViewController: UIViewController {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PhotoCell
                 cell!.photoVM = PhotoViewModel(item)
                 return cell!
-            })
+        })
         
         dataSource.titleForHeaderInSection = { dataSource, index in
             return dataSource.sectionModels[index].header
@@ -91,7 +95,7 @@ class PhotosViewController: UIViewController {
         Observable.just(sections)
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
-  }
+    }
     
     private func goToDetailsVC(photo: Photo) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "DetailsVC") as? PhotoDetailViewCotroller
@@ -106,7 +110,22 @@ class PhotosViewController: UIViewController {
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    @objc func reachabilityChanged(note: Notification) {
+        
+        let reachability = note.object as! Reachability
+        
+        switch reachability.connection {
+        case .wifi:
+            print("Reachable via WiFi")
+        case .cellular:
+            print("Reachable via Cellular")
+        default:
+            showAlert(message: "İnternet Erişimi yok")
+        }
+    }
 }
+
 
 //        _ = photosViewModel.photos.bind(to: tableView.rx.items(cellIdentifier: "cell", cellType: PhotoCell.self)){_,photo,cell in
 //            cell.photoVM = PhotoViewModel(photo)
