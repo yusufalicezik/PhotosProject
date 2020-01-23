@@ -14,17 +14,17 @@ import RxDataSources
 class PhotosViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     private var disposeBag = DisposeBag()
     private var dataSource: RxTableViewSectionedReloadDataSource<SectionOfPhoto>!
     
-    let photosViewModel = PhotosViewModel()
+    public let photosListViewModel = PhotosListViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "PhotoCell", bundle: nil), forCellReuseIdentifier: "cell")
         tableView.estimatedRowHeight = 135
-        
         setupBindings()
     }
     
@@ -40,28 +40,33 @@ class PhotosViewController: UIViewController {
     }
     
     //MARK: - Photos List (Fav ve tüm fotolar)
-    private func setupBindings(){
-        photosViewModel.photos
+    private func setupBindings() {
+        photosListViewModel.photos
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] photos in
                 self?.setTableViewDataSource()
             }).disposed(by: disposeBag)
         
-        photosViewModel.favoritePhotos
-        .observeOn(MainScheduler.instance)
-        .subscribe(onNext: { [weak self] photos in
-            self?.setTableViewDataSource()
-        }).disposed(by: disposeBag)
-        
-//        tableView.rx.itemSelected.subscribe(onNext: { [weak self] in
-//                self?.goToDetailsVC(indexPath: $0)
-//            }).disposed(by: disposeBag)
+        photosListViewModel.favoritePhotos
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] photos in
+                self?.setTableViewDataSource()
+            }).disposed(by: disposeBag)
         
         tableView.rx.modelSelected(Photo.self)
-        .asDriver()
+            .asDriver()
             .drive(onNext: { [unowned self] photo in
                 self.goToDetailsVC(photo: photo)
             }).disposed(by: disposeBag)
+        
+        photosListViewModel.showLoading
+            .observeOn(MainScheduler.instance)
+            .bind(to: loadingIndicator.rx.isHidden).disposed(by: disposeBag)
+
+        photosListViewModel.errorStatus.observeOn(MainScheduler.instance)
+        .subscribe(onNext: { [weak self] errorMessage in
+            self?.showAlert(message: errorMessage)
+        }).disposed(by: disposeBag)
     }
     
     func setTableViewDataSource() {
@@ -79,8 +84,8 @@ class PhotosViewController: UIViewController {
         }
         
         let sections = [
-            SectionOfPhoto(header: "Favoriler", items: photosViewModel.favoritePhotos.value),
-            SectionOfPhoto(header: "Tüm Fotoğraflar", items: try! photosViewModel.photos.value())
+            SectionOfPhoto(header: "Favoriler", items: photosListViewModel.favoritePhotos.value),
+            SectionOfPhoto(header: "Tüm Fotoğraflar", items: try! photosListViewModel.photos.value())
         ]
         
         Observable.just(sections)
@@ -89,10 +94,17 @@ class PhotosViewController: UIViewController {
   }
     
     private func goToDetailsVC(photo: Photo) {
-        let vc = storyboard?.instantiateViewController(identifier: "DetailsVC") as? PhotoDetailViewCotroller
+        let vc = storyboard?.instantiateViewController(withIdentifier: "DetailsVC") as? PhotoDetailViewCotroller
         vc?.detailViewModel.selectedPhoto.onNext(photo)
-        vc?.photosViewModel = self.photosViewModel
+        vc?.photosListViewModel = self.photosListViewModel
         self.navigationController?.pushViewController(vc!, animated: true)
+    }
+    
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: "Hata", message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Tamam", style: .default, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

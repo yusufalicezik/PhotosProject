@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		48286F6423DA166E00FCEE02 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48286F6323DA166E00FCEE02 /* CommentViewModel.swift */; };
+		48286F6623DA167A00FCEE02 /* PhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48286F6523DA167A00FCEE02 /* PhotoViewModel.swift */; };
 		4838CD6323D6667400581BE2 /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4838CD6223D6667400581BE2 /* ServiceManager.swift */; };
-		4838CD6523D6F66E00581BE2 /* PhotosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4838CD6423D6F66E00581BE2 /* PhotosViewModel.swift */; };
+		4838CD6523D6F66E00581BE2 /* PhotosListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4838CD6423D6F66E00581BE2 /* PhotosListViewModel.swift */; };
 		4838CD6B23D6FD6400581BE2 /* PhotoDetailViewCotroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4838CD6A23D6FD6400581BE2 /* PhotoDetailViewCotroller.swift */; };
 		4838CD6E23D6FE5C00581BE2 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4838CD6C23D6FE5C00581BE2 /* PhotoCell.swift */; };
 		4838CD6F23D6FE5C00581BE2 /* PhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4838CD6D23D6FE5C00581BE2 /* PhotoCell.xib */; };
@@ -33,8 +35,10 @@
 
 /* Begin PBXFileReference section */
 		056821E602D667156225C085 /* Pods_PhotosProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotosProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		48286F6323DA166E00FCEE02 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
+		48286F6523DA167A00FCEE02 /* PhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewModel.swift; sourceTree = "<group>"; };
 		4838CD6223D6667400581BE2 /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
-		4838CD6423D6F66E00581BE2 /* PhotosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewModel.swift; sourceTree = "<group>"; };
+		4838CD6423D6F66E00581BE2 /* PhotosListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosListViewModel.swift; sourceTree = "<group>"; };
 		4838CD6A23D6FD6400581BE2 /* PhotoDetailViewCotroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewCotroller.swift; sourceTree = "<group>"; };
 		4838CD6C23D6FE5C00581BE2 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		4838CD6D23D6FE5C00581BE2 /* PhotoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoCell.xib; sourceTree = "<group>"; };
@@ -146,13 +150,12 @@
 		48CDA98623D4FD8700E1B685 /* PhotosProject */ = {
 			isa = PBXGroup;
 			children = (
-				48CDA9A423D5037E00E1B685 /* Service */,
-				48CDA9A123D5007D00E1B685 /* Extension */,
 				48CDA9A023D4FE1F00E1B685 /* Storyboard */,
+				48CDA9A423D5037E00E1B685 /* Service */,
 				48CDA99E23D4FDAA00E1B685 /* SupportFiles */,
-				48CDA99D23D4FDA100E1B685 /* ViewModel */,
-				48CDA99C23D4FD9E00E1B685 /* View */,
 				48CDA99B23D4FD9A00E1B685 /* Model */,
+				48CDA99C23D4FD9E00E1B685 /* View */,
+				48CDA99D23D4FDA100E1B685 /* ViewModel */,
 			);
 			path = PhotosProject;
 			sourceTree = "<group>";
@@ -180,8 +183,10 @@
 		48CDA99D23D4FDA100E1B685 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				4838CD6423D6F66E00581BE2 /* PhotosViewModel.swift */,
+				4838CD6423D6F66E00581BE2 /* PhotosListViewModel.swift */,
 				4838CD7023D77AE800581BE2 /* DetailViewModel.swift */,
+				48286F6323DA166E00FCEE02 /* CommentViewModel.swift */,
+				48286F6523DA167A00FCEE02 /* PhotoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -189,6 +194,7 @@
 		48CDA99E23D4FDAA00E1B685 /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
+				48CDA9A123D5007D00E1B685 /* Extension */,
 				48CDA99F23D4FDFD00E1B685 /* Resources */,
 				48CDA99523D4FD8A00E1B685 /* Info.plist */,
 				48CDA99223D4FD8A00E1B685 /* LaunchScreen.storyboard */,
@@ -358,6 +364,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48CDA9A823D5098000E1B685 /* Photo.swift in Sources */,
+				48286F6423DA166E00FCEE02 /* CommentViewModel.swift in Sources */,
 				48CDA9A323D5009C00E1B685 /* UIApplication + Statusbar.swift in Sources */,
 				48CDA98C23D4FD8700E1B685 /* PhotosViewController.swift in Sources */,
 				4838CD7923D8B09700581BE2 /* SectionOfPhoto.swift in Sources */,
@@ -369,9 +376,10 @@
 				48CDA9A623D5047000E1B685 /* APIConstants.swift in Sources */,
 				48CDA9AA23D50A5500E1B685 /* Album.swift in Sources */,
 				4838CD7123D77AE800581BE2 /* DetailViewModel.swift in Sources */,
+				48286F6623DA167A00FCEE02 /* PhotoViewModel.swift in Sources */,
 				48CDA9AE23D50C4700E1B685 /* Comment.swift in Sources */,
 				48CDA98A23D4FD8700E1B685 /* SceneDelegate.swift in Sources */,
-				4838CD6523D6F66E00581BE2 /* PhotosViewModel.swift in Sources */,
+				4838CD6523D6F66E00581BE2 /* PhotosListViewModel.swift in Sources */,
 				4838CD6323D6667400581BE2 /* ServiceManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -448,7 +456,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -502,7 +510,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -518,6 +526,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8YH2HY6PT8;
 				INFOPLIST_FILE = PhotosProject/SupportFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -536,6 +545,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8YH2HY6PT8;
 				INFOPLIST_FILE = PhotosProject/SupportFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

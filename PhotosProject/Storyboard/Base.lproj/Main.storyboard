@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jVe-Dh-jJX">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,20 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JBY-d8-Yyl">
-                                <rect key="frame" x="0.0" y="114" width="414" height="748"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="skk-y3-6mD">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="skk-y3-6mD" id="O7f-ts-rd8">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iMK-KA-PfW">
                                 <rect key="frame" x="0.0" y="44" width="414" height="70"/>
                                 <subviews>
@@ -46,6 +33,24 @@
                                     <constraint firstAttribute="height" constant="70" id="bvM-bE-8Ub"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JBY-d8-Yyl">
+                                <rect key="frame" x="0.0" y="114" width="414" height="748"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="skk-y3-6mD">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="skk-y3-6mD" id="O7f-ts-rd8">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="ED2-Q0-VSI">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                                <color key="tintColor" red="0.9311670661" green="0.29906940459999998" blue="0.32706475260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -53,14 +58,17 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JBY-d8-Yyl" secondAttribute="trailing" id="93Y-Q2-Mki"/>
                             <constraint firstItem="JBY-d8-Yyl" firstAttribute="top" secondItem="iMK-KA-PfW" secondAttribute="bottom" id="Ou1-sl-Nx5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="JBY-d8-Yyl" secondAttribute="bottom" id="QeW-1c-5VH"/>
+                            <constraint firstItem="ED2-Q0-VSI" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="UP2-Jc-Xfi"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iMK-KA-PfW" secondAttribute="trailing" id="gf3-Nk-vHS"/>
                             <constraint firstItem="JBY-d8-Yyl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="j2b-f6-mTq"/>
+                            <constraint firstItem="ED2-Q0-VSI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="o2o-Nx-6H9"/>
                             <constraint firstItem="iMK-KA-PfW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="z9R-Ag-C3f"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="R0I-02-bc2"/>
                     <connections>
+                        <outlet property="loadingIndicator" destination="ED2-Q0-VSI" id="XVd-kn-LIB"/>
                         <outlet property="tableView" destination="JBY-d8-Yyl" id="gU6-M1-xv9"/>
                     </connections>
                 </viewController>
@@ -134,6 +142,10 @@
                                 <rect key="frame" x="12" y="321" width="390" height="538"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="ECK-xz-5YN">
+                                <rect key="frame" x="197" y="488" width="20" height="20"/>
+                                <color key="tintColor" red="0.9311670661" green="0.29906940459999998" blue="0.32706475260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="256" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wog-Xe-5i2">
                                 <rect key="frame" x="337" y="129" width="65" height="28"/>
                                 <fontDescription key="fontDescription" name="TrebuchetMS" family="Trebuchet MS" pointSize="13"/>
@@ -159,13 +171,16 @@
                             <constraint firstItem="SMl-TZ-Go5" firstAttribute="trailing" secondItem="idf-rz-eRO" secondAttribute="trailing" id="e5j-EZ-ktf"/>
                             <constraint firstItem="idf-rz-eRO" firstAttribute="top" secondItem="SMl-TZ-Go5" secondAttribute="top" id="ews-h3-KUq"/>
                             <constraint firstItem="TC9-Y8-sSh" firstAttribute="top" secondItem="idf-rz-eRO" secondAttribute="bottom" constant="15" id="ihZ-ll-UW6"/>
+                            <constraint firstItem="ECK-xz-5YN" firstAttribute="centerX" secondItem="Z2B-av-5bN" secondAttribute="centerX" id="oYg-Nh-QyO"/>
                             <constraint firstItem="SMl-TZ-Go5" firstAttribute="bottom" secondItem="lHZ-4K-yzg" secondAttribute="bottom" constant="3" id="whc-Va-JRe"/>
                             <constraint firstItem="SMl-TZ-Go5" firstAttribute="trailing" secondItem="T87-cE-A7C" secondAttribute="trailing" constant="12" id="xoL-SY-7ou"/>
+                            <constraint firstItem="ECK-xz-5YN" firstAttribute="centerY" secondItem="Z2B-av-5bN" secondAttribute="centerY" constant="50" id="ym6-Gy-dvW"/>
                             <constraint firstItem="Wog-Xe-5i2" firstAttribute="leading" secondItem="TC9-Y8-sSh" secondAttribute="trailing" constant="15" id="zw1-Er-36e"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SMl-TZ-Go5"/>
                     </view>
                     <connections>
+                        <outlet property="commentLoadingIndicator" destination="ECK-xz-5YN" id="ynK-Pi-iI2"/>
                         <outlet property="commentTableView" destination="lHZ-4K-yzg" id="XTg-Aw-hwh"/>
                         <outlet property="favButton" destination="Wog-Xe-5i2" id="MPN-dn-XvQ"/>
                         <outlet property="photoImageView" destination="T87-cE-A7C" id="n6H-5Z-vwi"/>

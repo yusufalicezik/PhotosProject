@@ -10,21 +10,24 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-struct PhotosViewModel {
+struct PhotosListViewModel {
     
     private let disposeBag = DisposeBag()
     
     public let photos: BehaviorSubject<[Photo]> = BehaviorSubject(value: [])
-    public let errorStatus: BehaviorSubject<String> = BehaviorSubject(value: "")
     public let favoritePhotos: BehaviorRelay<[Photo]> = BehaviorRelay(value: [])
+    public let errorStatus: PublishSubject<String> = PublishSubject<String>()
+    public let showLoading = BehaviorRelay<Bool>(value: false)
     
     init() {
         self.getAllPhotos()
     }
     
     public func getAllPhotos() {
+        showLoading.accept(false)
         ServiceManager.shared.loadData(url: APIConstants.PHOTOS_LIST, type: [Photo].self)
             .subscribe(onNext: { response in
+                self.showLoading.accept(true)
                 switch response {
                 case .success(let photoList):
                     self.photos.onNext(photoList)
@@ -43,26 +46,5 @@ struct PhotosViewModel {
                     }
                 }
             }).disposed(by: disposeBag)
-    }
-}
-
-//MARK:- SinglePhotoVM
-
-struct PhotoViewModel {
-    private var photo: Photo
-    
-    init(_ photo: Photo) {
-        self.photo = photo
-    }
-}
-
-extension PhotoViewModel {
-    
-    var imageUrl: URL {
-        return URL(string: photo.url!)!
-    }
-    
-    var imageTitle: String {
-        return photo.title!
     }
 }

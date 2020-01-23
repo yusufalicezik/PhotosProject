@@ -11,7 +11,7 @@ import Foundation
 struct APIConstants{
     
     private static let BASE_URL = "https://jsonplaceholder.typicode.com/"
-    private static let PHOTOS = "photos/"
+    private static let PHOTOS = "photdos/"
     private static let ALBUMS = "albums/"
     private static let USERS = "users/"
     private static let COMMENTS = "comments"
@@ -32,6 +32,8 @@ struct APIConstants{
         return BASE_URL + USERS + String(user_id)
     }
 
+    //"https://jsonplaceholder.typicode.com/photos/{:id}/comments" isteği tüm commentleri getiriyordu. Posta ait commentler için aşağıdaki url'i kullandım.
+    //postid 100 den fazla olunca herhangi bir comment dönmüyor. Servis bu şekilde olduğundan.
     static var PHOTO_COMMENTS: String {
         return BASE_URL + PHOTOS + String(photo_id) + "/" + COMMENTS + "?postId=\(photo_id!)"
     }

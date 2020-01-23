@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-enum ApiResult<Value, RequestError>{
+enum ApiResult<Value, RequestError> {
     case success(Value)
     case failure(RequestError)
     

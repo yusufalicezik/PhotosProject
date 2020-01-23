@@ -15,19 +15,20 @@ class PhotoDetailViewCotroller: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var usernameSurnameLabel: UILabel! //fullname
-    @IBOutlet weak var usernameLabel: UILabel! //@
+    @IBOutlet weak var usernameLabel: UILabel! //@username
     @IBOutlet weak var favButton: UIButton!
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var commentTableView: UITableView!
+    @IBOutlet weak var commentLoadingIndicator: UIActivityIndicatorView!
     
     private let disposeBag = DisposeBag()
     private let photoImageUrl = PublishSubject<String>()
-    private var currentPhoto:Photo!
+    private var currentPhoto: Photo!
     private var isExist = BehaviorSubject<Bool>(value: false)
     private var favButtonAction: (()->Void)!
     
     public let detailViewModel = DetailViewModel()
-    public var photosViewModel: PhotosViewModel!
+    public var photosListViewModel: PhotosListViewModel! //favorilere erişebilmek için (ekle/çıkar)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,41 +50,28 @@ class PhotoDetailViewCotroller: UIViewController {
     }
     
     private func addFavAction() {
-        var photos = photosViewModel.favoritePhotos.value
+        var photos = photosListViewModel.favoritePhotos.value
         photos.append(currentPhoto)
-        self.photosViewModel.favoritePhotos.accept(photos)
+        self.photosListViewModel.favoritePhotos.accept(photos)
     }
     
     private func removeFavAction() {
-            
-        let oldPhotos = photosViewModel.favoritePhotos.value
-        photosViewModel.favoritePhotos.accept(oldPhotos.filter( { $0.id! != currentPhoto.id!}))
-        
-//        self.photosViewModel.favoritePhotos
-//            .observeOn(MainScheduler.instance)
-//            .map { photoList -> Observable<[Photo]> in
-//                return Observable.just(photoList.filter { $0.id! != self.currentPhoto.id! })  //remove currentPhoto
-//        }.bind(to: photosViewModel.favoritePhotos)
-//        .disposed(by: disposeBag)
+        let oldPhotos = photosListViewModel.favoritePhotos.value
+        photosListViewModel.favoritePhotos.accept(oldPhotos.filter( { $0.id! != currentPhoto.id!}))
     }
     
     //MARK:- Binding
     
     private func setupBindings() {
-        
         isExist.subscribe(onNext: { [weak self] isExist in
             if isExist {
-                DispatchQueue.main.async {
-                    self!.favButton.setTitle("Favorilerden Çıkar", for: .normal)
-                }
+                self?.favButton.setTitle("Favorilerden Çıkar", for: .normal)
                 self?.favButtonAction = self?.removeFavAction
-            }else{
-                DispatchQueue.main.async {
-                    self!.favButton.setTitle("Favorilere Ekle", for: .normal)
-                }
+            } else {
+                self?.favButton.setTitle("Favorilere Ekle", for: .normal)
                 self?.favButtonAction = self?.addFavAction
             }
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
         detailViewModel.ownerUser
             .observeOn(MainScheduler.instance)
@@ -114,7 +102,7 @@ class PhotoDetailViewCotroller: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        photosViewModel.favoritePhotos
+        photosListViewModel.favoritePhotos
             .map { photo -> Bool in
                 return photo.contains { $0.id! == self.currentPhoto.id!}
             }.bind(to: self.isExist)
@@ -123,5 +111,9 @@ class PhotoDetailViewCotroller: UIViewController {
         _ = detailViewModel.comments.bind(to: commentTableView.rx.items(cellIdentifier: "commentCell", cellType: CommentCell.self)){_,comment,cell in
             cell.commentVM = CommentViewModel(comment)
         }
+        
+        detailViewModel.showLoading
+        .observeOn(MainScheduler.instance)
+        .bind(to: commentLoadingIndicator.rx.isHidden).disposed(by: disposeBag)
     }
 }
